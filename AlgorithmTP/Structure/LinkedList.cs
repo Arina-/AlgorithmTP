@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Structures
 {
-    public class LinkedList<T> : ICollection<T>
+    public class LinkedListR<T> : ICollection<T>
     {
 
-        private LinkedListNode<T> _head;
-        private LinkedListNode<T> _tail;
+        private LinkedListNodeR<T> _head;
+        private LinkedListNodeR<T> _tail;
 
         public int Count
         {
@@ -26,7 +26,7 @@ namespace Structures
 
         public void Add(T value)
         {
-            LinkedListNode<T> node = new LinkedListNode<T>(value);
+            LinkedListNodeR<T> node = new LinkedListNodeR<T>(value);
 
             if (_head == null)
             {
@@ -52,7 +52,7 @@ namespace Structures
         // проверка на наличие элемента в списке
         public bool Contains(T item)
         {
-            LinkedListNode<T> current = _head;
+            LinkedListNodeR<T> current = _head;
             while (current != null)
             {
                 if (current.Value.Equals(item))
@@ -69,7 +69,7 @@ namespace Structures
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            LinkedListNode<T> current = _head;
+            LinkedListNodeR<T> current = _head;
             while (current != null)
             {
                 array[arrayIndex++] = current.Value;
@@ -80,8 +80,8 @@ namespace Structures
         // удаление конкретного элемента
         public bool Remove(T item)
         {
-            LinkedListNode<T> previous = null;
-            LinkedListNode<T> current = _head;
+            LinkedListNodeR<T> previous = null;
+            LinkedListNodeR<T> current = _head;
 
             // 1: Пустой список: ничего не делать.
             // 2: Один элемент: установить Previous = null.
@@ -145,7 +145,7 @@ namespace Structures
 
         public IEnumerator<T> GetEnumerator()
         {
-            LinkedListNode<T> current = _head;
+            LinkedListNodeR<T> current = _head;
             while (current != null)
             {
                 yield return current.Value;
@@ -155,7 +155,7 @@ namespace Structures
 
         public void PrintList()
         {
-            LinkedListNode<T> node = _head;
+            LinkedListNodeR<T> node = _head;
             Console.Write("Текущий список: ");
             while (node != null)
             {
@@ -169,12 +169,12 @@ namespace Structures
 
     //**************************************************************************************************  УЗЕЛ  **********
     // класс узла
-    public class LinkedListNode<T>
+    public class LinkedListNodeR<T>
     {
         ///
         /// Конструктор нового узла со значением Value.
         ///
-        public LinkedListNode(T value)
+        public LinkedListNodeR(T value)
         {
             Value = value;
         }
@@ -187,7 +187,7 @@ namespace Structures
         ///
         /// Ссылка на следующий узел списка (если узел последний, то null).
         ///
-        public LinkedListNode<T> Next { get; internal set; }
+        public LinkedListNodeR<T> Next { get; internal set; }
     }
 
 }
