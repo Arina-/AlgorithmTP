@@ -17,15 +17,20 @@ using System.Threading.Tasks;
 // имеем доступ только к последенему элементу коллекции
 // в отличие от списка не можем получить доступ к произвольному элементу
 // в реализации для хранения элементов используется LinkedList<T>
+
+
+// ЗАМЕЧАНИЯ
+// для разбияния строки на подмассивы   input.Split(new char[] { ' ' })
+// foreach (string token in input.Split(new char[] { ' ' })
 namespace Structures
 {
     class Program
     {
         static void Main(string[] args)
         {
-            LinkedList<int> myLL = new LinkedList<int>();
+            LinkedListR<int> myLL = new LinkedListR<int>();
             Console.WriteLine("**** Fun with LinkedList ****");
-
+            Console.WriteLine("**** Реализованная версия ****");
             myLL.PrintList();
 
             myLL.Add(1);
@@ -35,7 +40,83 @@ namespace Structures
 
             myLL.Remove(2);
             myLL.PrintList();
+
+            Console.WriteLine("**** Встроенная версия ****");
+            LinkedList<int> sysLL = new LinkedList<int>();
+            sysLL.AddLast(1);
+            sysLL.AddLast(2);
+            sysLL.AddLast(3);
+            Console.Write("Текущий список: ");
+
+            LinkedListNode<int> node = new LinkedListNode<int>(0);
+            node = sysLL.First;
+            while (node != null)
+            {
+                Console.Write("{0} -> ", node.Value);
+                node = node.Next;
+            }
             Console.ReadLine();
+        }
+
+        //*****************************************************************************************  ПОЛЬСКИЙ КАЛЬКУЛТОР  *********
+        static void RpnLoop<T>()
+        {
+            while (true)
+            {
+                Console.Write("&gt; ");
+                string input = Console.ReadLine();
+                if (input.Trim().ToLower() == "quit")
+                {
+                    break;
+                }
+
+                // Стек еще не обработанных значений.
+                Stack<T> values = new Stack<T>();
+
+                foreach (string token in input.Split(new char[] { ' ' }))
+                {
+                    // Если значение - целое число...
+                    int value;
+                    if (int.TryParse(token, out value))
+                    {
+                        // ... положить его на стек.
+                        values.Push(value);
+                    }
+                    else
+                    {
+                        // в противном случае выполнить операцию...
+                        int rhs = values.Pop();
+                        int lhs = values.Pop();
+
+                        // ... и положить результат обратно.
+                        switch (token)
+                        {
+                            case "+":
+                                values.Push(lhs + rhs);
+                                break;
+                            case "-":
+                                values.Push(lhs - rhs);
+                                break;
+                            case "*":
+                                values.Push(lhs * rhs);
+                                break;
+                            case "/":
+                                values.Push(lhs / rhs);
+                                break;
+                            case "%":
+                                values.Push(lhs % rhs);
+                                break;
+                            default:
+                                // Если операция не +, -, * или /
+                                throw new ArgumentException(
+                                    string.Format("Unrecognized token: {0}", token));
+                        }
+                    }
+                }
+
+                // Последний элемент на стеке и есть результат.
+                Console.WriteLine(values.Pop());
+            }
         }
     }
 }
