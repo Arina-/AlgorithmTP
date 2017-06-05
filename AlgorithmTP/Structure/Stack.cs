@@ -18,12 +18,12 @@ namespace Structures
             }
         }
 
-        public void push(T value)
+        public void Push(T value)
         {
             _items.AddLast(value);
         }
 
-        public T pop()
+        public T Pop()
         {
             T value = _items.Last.Value;
             _items.RemoveLast();

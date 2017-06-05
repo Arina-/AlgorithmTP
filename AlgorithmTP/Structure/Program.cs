@@ -55,11 +55,18 @@ namespace Structures
                 Console.Write("{0} -> ", node.Value);
                 node = node.Next;
             }
+
+            Console.WriteLine();
+            Console.WriteLine("**** Fun with Stack ****");
+            Console.WriteLine("**** Польский калькулятор ****");
+            Console.WriteLine("Для выхода введите quit");
+            Console.WriteLine("Введите символы для счета: ");
+            RpnLoop();
             Console.ReadLine();
         }
 
-        //*****************************************************************************************  ПОЛЬСКИЙ КАЛЬКУЛТОР  *********
-        static void RpnLoop<T>()
+ //*****************************************************************************************  ПОЛЬСКИЙ КАЛЬКУЛТОР  *********
+        static void RpnLoop()
         {
             while (true)
             {
@@ -71,7 +78,7 @@ namespace Structures
                 }
 
                 // Стек еще не обработанных значений.
-                Stack<T> values = new Stack<T>();
+                Stack<int> values = new Stack<int>();
 
                 foreach (string token in input.Split(new char[] { ' ' }))
                 {
