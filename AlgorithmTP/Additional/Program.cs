@@ -16,6 +16,7 @@ namespace Additional
             {
                 Console.WriteLine(token);
             }
+            
 
             Console.ReadLine();
         }
